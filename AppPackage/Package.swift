@@ -105,7 +105,9 @@ enum SystemArchitectureTargets {
             case .extensionTarget:
                 return Target.target(
                     name: "PresentationExtension",
-                    dependencies: [],
+                    dependencies: [
+                        .target(name: PresentationTargets.sharedTarget.value.name),
+                    ],
                     path: "./Sources/Layer/Presentation/Extension",
                     swiftSettings: debugSwiftSettings
                 )
