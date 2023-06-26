@@ -87,6 +87,7 @@ enum SystemArchitectureTargets {
         case sharedTarget
         case extensionTarget
         case pokemonListTarget
+        case pokemonDetailTarget
 
         static let allTargets: [Target] = Self.allCases.map(\.value)
 
@@ -121,6 +122,16 @@ enum SystemArchitectureTargets {
                         .target(name: PresentationTargets.sharedTarget.value.name),
                     ],
                     path: "./Sources/Layer/Presentation/PokemonListScreen",
+                    swiftSettings: debugSwiftSettings
+                )
+            case .pokemonDetailTarget:
+                return Target.target(
+                    name: "PokemonDetailScreen",
+                    dependencies: [
+                        .target(name: SupportTargets.applicationDependencies.name),
+                        .target(name: PresentationTargets.sharedTarget.value.name),
+                    ],
+                    path: "./Sources/Layer/Presentation/PokemonDetailScreen",
                     swiftSettings: debugSwiftSettings
                 )
             }
@@ -213,6 +224,12 @@ let package = Package(
             name: "PokemonListScreen",
             targets: [
                 SystemArchitectureTargets.PresentationTargets.pokemonListTarget.value.name
+            ]
+        ),
+        .library(
+            name: "PokemonDetailScreen",
+            targets: [
+                SystemArchitectureTargets.PresentationTargets.pokemonDetailTarget.value.name
             ]
         ),
         .library(
