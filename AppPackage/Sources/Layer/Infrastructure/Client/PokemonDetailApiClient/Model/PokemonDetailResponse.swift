@@ -50,7 +50,7 @@ extension PokemonDetailResponse {
 
         let slot: Int
 
-        let type: [`Type`]
+        let type: `Type`
     }
 }
 

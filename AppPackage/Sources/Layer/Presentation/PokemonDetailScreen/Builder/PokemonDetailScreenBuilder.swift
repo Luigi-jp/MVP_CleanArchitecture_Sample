@@ -9,8 +9,8 @@ import SwiftUI
 
 public enum PokemonDetailScreenBuilder {
 
-    public static func build(id: Int) -> UIViewController {
-        let viewData = PokemonDetailViewData(id: id)
+    public static func build(number: Int) -> UIViewController {
+        let viewData = PokemonDetailViewData(number: number)
         let router = PokemonDetailRouterImpl()
         let presenter = PokemonDetailPresenter(viewData: viewData, router: router)
         let screen = PokemonDetailScreenView(presenter: presenter, viewData: viewData)

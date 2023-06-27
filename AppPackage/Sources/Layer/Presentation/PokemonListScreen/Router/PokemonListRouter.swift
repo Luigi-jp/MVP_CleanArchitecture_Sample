@@ -6,12 +6,14 @@
 //
 
 import PresentationDependencies
+import PokemonDetailScreen
 import SharedPresentation
 import SwiftUI
 
 public protocol PokemonListRouter: Router {
 
 //    func pushPokemonList()
+    func pushPokemonDetail(number: Int)
 }
 
 final class PokemonListRouterImpl: PokemonListRouter {
@@ -25,4 +27,9 @@ final class PokemonListRouterImpl: PokemonListRouter {
 //            animated: true
 //        )
 //    }
+
+    func pushPokemonDetail(number: Int) {
+        let vc = PokemonDetailScreenBuilder.build(number: number)
+        self.hostingController?.navigationController?.pushViewController(vc, animated: true)
+    }
 }

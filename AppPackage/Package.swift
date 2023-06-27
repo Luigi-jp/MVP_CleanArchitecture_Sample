@@ -120,6 +120,7 @@ enum SystemArchitectureTargets {
                         .target(name: SupportTargets.presentationDependencies.name),
                         .target(name: PresentationTargets.extensionTarget.value.name),
                         .target(name: PresentationTargets.sharedTarget.value.name),
+                        .target(name: PresentationTargets.pokemonDetailTarget.value.name),
                     ],
                     path: "./Sources/Layer/Presentation/PokemonListScreen",
                     swiftSettings: debugSwiftSettings

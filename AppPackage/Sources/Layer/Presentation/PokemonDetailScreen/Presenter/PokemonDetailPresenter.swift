@@ -37,7 +37,7 @@ public final class PokemonDetailPresenter: PokemonDetailPresenterInput {
     public func performRequest() async {
         await self.viewData.updateIsLoading(isLoading: true)
         do {
-            let pokemonDetail = try await self.getPokemonDetailUseCase.execute(self.viewData.id)
+            let pokemonDetail = try await self.getPokemonDetailUseCase.execute(self.viewData.number)
             await self.viewData.updatePokemonDetail(pokemonDetail: pokemonDetail)
         } catch {
             print("e: \(error)")

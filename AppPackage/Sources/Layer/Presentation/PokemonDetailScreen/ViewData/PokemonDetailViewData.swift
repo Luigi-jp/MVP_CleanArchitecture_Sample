@@ -17,10 +17,10 @@ public actor PokemonDetailViewData: ObservableObject {
     @MainActor @Published private(set) var error: PresentationError?
     @MainActor @Published private(set) var isErrorShown = false
 
-    @MainActor private(set) var id: Int
+    @MainActor private(set) var number: Int
 
-    public init(id: Int) {
-        self.id = id
+    public init(number: Int) {
+        self.number = number
     }
 
     func updateTitle(title: String) async {
