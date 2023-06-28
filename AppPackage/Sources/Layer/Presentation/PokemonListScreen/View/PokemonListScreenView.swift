@@ -15,7 +15,7 @@ struct PokemonListScreenView: View {
     @ObservedObject var viewData: PokemonListViewData
 
     var body: some View {
-        NavigationView {
+//        NavigationView {
             VStack {
                 self.content()
                     .when(viewData.pokemons.isEmpty) { _ in
@@ -38,25 +38,29 @@ struct PokemonListScreenView: View {
             }
             .navigationTitle(self.viewData.title)
             .edgesIgnoringSafeArea(.bottom)
-        }
+//        }
     }
 
     @ViewBuilder
     private func content() -> some View {
         List(self.viewData.pokemons, id: \.self.id) { pokemon in
-            HStack(spacing: 16.0) {
-                LoadableImage(
-                    url: pokemon.imageUrl,
-                    placeholder: ProgressView()
-                )
-                .frame(width: 48, height: 48, alignment: .center)
-                Text(pokemon.name)
-            }
-                .onAppear {
-                    if self.viewData.pokemons.last == pokemon {
-                        Task { await self.presenter?.performAdditionalRequest() }
-                    }
+            Button {
+                self.presenter?.didTapCell(number: pokemon.number)
+            } label: {
+                HStack(spacing: 16.0) {
+                    LoadableImage(
+                        url: pokemon.imageUrl,
+                        placeholder: ProgressView()
+                    )
+                    .frame(width: 48, height: 48, alignment: .center)
+                    Text(pokemon.name)
                 }
+                    .onAppear {
+                        if self.viewData.pokemons.last == pokemon {
+                            Task { await self.presenter?.performAdditionalRequest() }
+                        }
+                    }
+            }
         }
         .listStyle(.plain)
     }

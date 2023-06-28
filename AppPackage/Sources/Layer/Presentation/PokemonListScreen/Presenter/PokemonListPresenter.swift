@@ -15,6 +15,7 @@ public protocol PokemonListPresenterInput {
     func performRequest() async
     func performAdditionalRequest() async
     func updateError(_ error: PresentationError?) async
+    func didTapCell(number: Int)
 }
 
 public final class PokemonListPresenter: PokemonListPresenterInput {
@@ -58,5 +59,9 @@ public final class PokemonListPresenter: PokemonListPresenterInput {
 
     public func updateError(_ error: PresentationError?) async {
         await self.viewData.updateError(error)
+    }
+
+    public func didTapCell(number: Int) {
+        self.router.pushPokemonDetail(number: number)
     }
 }

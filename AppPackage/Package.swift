@@ -1,4 +1,4 @@
-// swift-tools-version: 5.8
+// swift-tools-version: 5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -13,11 +13,11 @@ let debugOtherSwiftFlags = [
 ]
 
 let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
-    .unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug)),
-    .enableUpcomingFeature("ConciseMagicFile", .when(configuration: .debug)), // SE-0274
-    .enableUpcomingFeature("ForwardTrailingClosures", .when(configuration: .debug)), // SE-0286
-    .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335
-    .enableUpcomingFeature("BaseSlashRegexLiterals", .when(configuration: .debug)), // SE-0354
+//    .unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug)),
+//    .enableUpcomingFeature("ConciseMagicFile", .when(configuration: .debug)), // SE-0274
+//    .enableUpcomingFeature("ForwardTrailingClosures", .when(configuration: .debug)), // SE-0286
+//    .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335
+//    .enableUpcomingFeature("BaseSlashRegexLiterals", .when(configuration: .debug)), // SE-0354
 ]
 
 // MARK: Targets(System Architecture)
@@ -87,6 +87,7 @@ enum SystemArchitectureTargets {
         case sharedTarget
         case extensionTarget
         case pokemonListTarget
+        case pokemonDetailTarget
 
         static let allTargets: [Target] = Self.allCases.map(\.value)
 
@@ -105,7 +106,9 @@ enum SystemArchitectureTargets {
             case .extensionTarget:
                 return Target.target(
                     name: "PresentationExtension",
-                    dependencies: [],
+                    dependencies: [
+                        .target(name: PresentationTargets.sharedTarget.value.name),
+                    ],
                     path: "./Sources/Layer/Presentation/Extension",
                     swiftSettings: debugSwiftSettings
                 )
@@ -117,8 +120,19 @@ enum SystemArchitectureTargets {
                         .target(name: SupportTargets.presentationDependencies.name),
                         .target(name: PresentationTargets.extensionTarget.value.name),
                         .target(name: PresentationTargets.sharedTarget.value.name),
+                        .target(name: PresentationTargets.pokemonDetailTarget.value.name),
                     ],
                     path: "./Sources/Layer/Presentation/PokemonListScreen",
+                    swiftSettings: debugSwiftSettings
+                )
+            case .pokemonDetailTarget:
+                return Target.target(
+                    name: "PokemonDetailScreen",
+                    dependencies: [
+                        .target(name: SupportTargets.applicationDependencies.name),
+                        .target(name: PresentationTargets.sharedTarget.value.name),
+                    ],
+                    path: "./Sources/Layer/Presentation/PokemonDetailScreen",
                     swiftSettings: debugSwiftSettings
                 )
             }
@@ -211,6 +225,12 @@ let package = Package(
             name: "PokemonListScreen",
             targets: [
                 SystemArchitectureTargets.PresentationTargets.pokemonListTarget.value.name
+            ]
+        ),
+        .library(
+            name: "PokemonDetailScreen",
+            targets: [
+                SystemArchitectureTargets.PresentationTargets.pokemonDetailTarget.value.name
             ]
         ),
         .library(
