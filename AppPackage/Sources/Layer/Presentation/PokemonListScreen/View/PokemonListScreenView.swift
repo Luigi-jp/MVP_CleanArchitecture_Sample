@@ -15,8 +15,8 @@ struct PokemonListScreenView: View {
     @ObservedObject var viewData: PokemonListViewData
 
     var body: some View {
-        NavigationView {
-//            VStack {
+//        NavigationView {
+            VStack {
                 self.content()
                     .when(viewData.pokemons.isEmpty) { _ in
                         self.viewData.isLoading

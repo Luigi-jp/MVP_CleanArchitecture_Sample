@@ -29,7 +29,10 @@ final class PokemonListRouterImpl: PokemonListRouter {
 //    }
 
     func pushPokemonDetail(number: Int) {
-        let vc = PokemonDetailScreenBuilder.build(number: number)
-        self.hostingController?.navigationController?.pushViewController(vc, animated: true)
+        InjectedValues[\.pokemonDetailScreen] = { PokemonDetailScreenBuilder.build(number: number) }
+        self.hostingController?.navigationController?.pushViewController(
+            InjectedValues[\.pokemonDetailScreen](),
+            animated: true
+        )
     }
 }

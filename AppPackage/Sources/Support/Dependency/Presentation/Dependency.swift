@@ -21,3 +21,16 @@ extension InjectedValues {
         set { Self[PokemonListScreenProviderKey.self] = newValue }
     }
 }
+
+struct PokemonDetailScreenProviderKey: InjectionKey {
+
+    static var currentValue: () -> UIViewController = { UIViewController() }
+}
+
+extension InjectedValues {
+
+    public var pokemonDetailScreen: () -> UIViewController {
+        get { Self[PokemonDetailScreenProviderKey.self] }
+        set { Self[PokemonDetailScreenProviderKey.self] = newValue }
+    }
+}

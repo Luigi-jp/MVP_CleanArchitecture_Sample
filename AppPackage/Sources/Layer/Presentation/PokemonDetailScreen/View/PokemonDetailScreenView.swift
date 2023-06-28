@@ -17,9 +17,20 @@ struct PokemonDetailScreenView: View {
         VStack {
             if let pokemonDetail = self.viewData.pokemonDetail {
                 VStack(spacing: 8) {
+                    HStack {
+                        Button {
+                            self.presenter?.didTapPopButton()
+                        } label: {
+                            Image(systemName: "chevron.backward")
+                                .foregroundColor(.black)
+                        }
+                        Spacer()
+                    }
+                    .padding(.leading, 24)
                     LoadableImage(
                         url: pokemonDetail.imageUrl,
                         placeholder: ProgressView()
+                            .frame(width: 150, height: 150)
                     )
                     .aspectRatio(1, contentMode: .fit)
                     .padding(.horizontal, 48.0)
@@ -40,8 +51,8 @@ struct PokemonDetailScreenView: View {
                                 self.informationRow(icon: $0.icon, name: $0.name, value: $0.value)
                             }
                         }
-
                     }
+                    Spacer()
                 }
             } else {
                 ProgressView()

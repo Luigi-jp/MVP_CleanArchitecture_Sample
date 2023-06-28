@@ -14,6 +14,7 @@ public protocol PokemonDetailPresenterInput {
     func onAppear() async
     func performRequest() async
     func updateError(_ error: PresentationError?) async
+    func didTapPopButton()
 }
 
 public final class PokemonDetailPresenter: PokemonDetailPresenterInput {
@@ -47,5 +48,9 @@ public final class PokemonDetailPresenter: PokemonDetailPresenterInput {
 
     public func updateError(_ error: SharedPresentation.PresentationError?) async {
         await self.viewData.updateError(error)
+    }
+
+    public func didTapPopButton() {
+        self.router.pop(true)
     }
 }
